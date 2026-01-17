@@ -1,0 +1,27 @@
+- name: Config Backup ONLY (ASA + EOS)
+  hosts: asa:eos
+  gather_facts: no
+  tasks:
+    - name: Ensure backup dirs exist
+      file:
+        path: "artifacts/backups/{{ 'asa' if 'asa' in group_names else 'eos' }}"
+        state: directory
+        mode: "0755"
+
+    - name: ASA - get running-config
+      when: "'asa' in group_names"
+      cisco.asa.asa_command:
+        commands: [ "show running-config" ]
+      register: asa_cfg
+
+    - name: EOS - get running-config
+      when: "'eos' in group_names"
+      arista.eos.eos_command:
+        commands: [ "show running-config" ]
+      register: eos_cfg
+
+    - name: Save backup
+      copy:
+        content: "{{ (asa_cfg.stdout[0] if 'asa' in group_names else eos_cfg.stdout[0]) }}"
+        dest: "artifacts/backups/{{ 'asa' if 'asa' in group_names else 'eos' }}/{{ inventory_hostname }}.cfg"
+

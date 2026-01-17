@@ -1,3 +1,36 @@
-*.retry
-*.log
+# ======================
+# Secrets / Credentials
+# ======================
+.env
+*.env
+
+# ======================
+# Python
+# ======================
 __pycache__/
+*.pyc
+
+# ======================
+# Virtual Environment
+# ======================
+.venv/
+
+# ======================
+# Ansible
+# ======================
+*.retry
+
+# ======================
+# Artifacts (DO NOT COMMIT RAW CONFIGS)
+# ======================
+artifacts/backups/*
+artifacts/normalized/*
+artifacts/reports/*
+!artifacts/reports/drift/
+!artifacts/reports/drift/*.md
+
+# ======================
+# OS / Editor
+# ======================
+.DS_Store
+.vscode/

@@ -1,0 +1,16 @@
+- name: ASA precheck (baseline)
+  hosts: asa
+  gather_facts: no
+  tasks:
+    - name: Collect basic status
+      cisco.asa.asa_command:
+        commands:
+          - show version
+          - show failover
+          - show interface ip brief
+          - show route
+      register: out
+
+    - name: Print results
+      debug:
+        var: out.stdout_lines
