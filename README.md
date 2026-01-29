@@ -24,15 +24,16 @@ Config Backup → Normalize → Diff → Report → Slack Alert
 - **Artifacts**: 정규화된 설정 파일, Drift 리포트
 
 ## 디렉토리 구조
+
 ansible/
 ├─ hosts.yml
 ├─ asa_precheck.yml
 ├─ backup_only.yml
-├─ group_vars/
-│ ├─ asa/
-│ │ └─ main.yml
-│ └─ eos/
+└─ group_vars/
+├─ asa/
 │ └─ main.yml
+└─ eos/
+└─ main.yml
 
 artifacts/
 ├─ normalized/
@@ -46,7 +47,6 @@ scripts/
 ├─ drift_report.sh
 ├─ notify_slack.sh
 └─ run_nightly_drift.sh
-
 
 ## 핵심 구현
 - 멀티벤더 설정 정규화(normalization) 후 Diff 비교
