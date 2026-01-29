@@ -1,50 +1,36 @@
 # IDC Network Automation & Monitoring Lab
 
-본 프로젝트는 **실제 IDC 환경을 가정하여**
-네트워크 설정 변경 감지(Config Drift),
-알림, 자동화 운영을 구현한 개인 실습 프로젝트입니다.
+## 개요
+본 프로젝트는 실제 IDC 운영 환경을 가정하여  
+네트워크 장비 설정 변경(Config Drift)을 자동으로 감지하고  
+운영 중 장애 리스크를 사전에 예방하기 위한 운영 자동화 실습 프로젝트입니다.
 
-Ansible과 Python을 활용해
-멀티벤더 네트워크 장비를 대상으로
-운영 안정성을 높이는 자동화 흐름을 설계·검증했습니다.
+Ansible과 Python을 활용해 Cisco ASA, Arista EOS 환경에서  
+설정 백업 → 정규화 → Diff 비교 → 리포트 생성 → Slack 알림까지  
+운영 흐름을 자동화했습니다.
 
----
+## 목적
+- 네트워크 설정 변경(Config Drift) 자동 감지
+- 의도되지 않은 변경으로 인한 장애 사전 예방
+- 수동 점검 자동화를 통한 운영 리스크 감소
 
-## 🎯 프로젝트 목적
+## 자동화 흐름
+Config Backup → Normalize → Diff → Report → Slack Alert
 
-- 네트워크 설정 변경(Drift) 자동 감지
-- 운영 중 설정 차이로 인한 장애 사전 예방
-- 수동 점검을 자동화하여 운영 리스크 감소
 
----
+## 구성 요소
+- **Network**: Cisco ASA, Arista EOS
+- **Automation**: Ansible (backup, diff), Python/Shell
+- **Artifacts**: 정규화된 설정 파일, Drift 리포트
 
-## 🏗️ 구성 환경
+## 디렉토리 구조
+ansible/ # 설정 수집 및 백업
+artifacts/ # 정규화된 설정 및 Drift 리포트
+scripts/ # Diff, 알림, 주기 실행 스크립트
 
-- **Network Devices**
-  - Cisco ASA
-  - Arista EOS
 
-- **Automation**
-  - Ansible (Config backup / Diff / Alert)
-  - Python (스크립트 기반 보조 자동화)
-
-- **Monitoring & Alert**
-  - Config Drift Detection
-  - 변경 발생 시 알림 자동화
-
----
-
-## 📂 디렉터리 구조
-
-```text
-.
-├── ansible/        # Ansible playbooks & inventory
-├── scripts/        # Python / Shell automation scripts
-├── artifacts/      # Config backup & diff 결과물
-├── ansible.cfg
-└── .gitignore
-
-> 본 프로젝트는 단순 자동화 구현이 아닌,
-> 실제 운영 환경에서 발생 가능한 장애 시나리오를 기준으로
-> 자동화 설계와 검증에 초점을 맞췄습니다.
-
+## 핵심 구현
+- 멀티벤더 설정 정규화(normalization) 후 Diff 비교
+- 실행 시점별 Drift 리포트 자동 생성
+- 설정 변경 발생 시 Slack 알림 연계
+- 야간 운영을 가정한 정기 자동 실행
