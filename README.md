@@ -25,28 +25,29 @@ Config Backup → Normalize → Diff → Report → Slack Alert
 
 ## 디렉토리 구조
 
+```text
 ansible/
-├─ hosts.yml
-├─ asa_precheck.yml
-├─ backup_only.yml
-└─ group_vars/
-├─ asa/
-│ └─ main.yml
-└─ eos/
-└─ main.yml
+ ├─ hosts.yml
+ ├─ asa_precheck.yml
+ ├─ backup_only.yml
+ └─ group_vars/
+     ├─ asa/
+     │   └─ main.yml
+     └─ eos/
+         └─ main.yml
 
 artifacts/
-├─ normalized/
-│ ├─ asa/
-│ └─ eos/
-└─ reports/
-└─ drift/
+ ├─ normalized/
+ │   ├─ asa/
+ │   └─ eos/
+ └─ reports/
+     └─ drift/
 
 scripts/
-├─ normalize_config.py
-├─ drift_report.sh
-├─ notify_slack.sh
-└─ run_nightly_drift.sh
+ ├─ normalize_config.py
+ ├─ drift_report.sh
+ ├─ notify_slack.sh
+ └─ run_nightly_drift.sh
 
 ## 핵심 구현
 - 멀티벤더 설정 정규화(normalization) 후 Diff 비교
