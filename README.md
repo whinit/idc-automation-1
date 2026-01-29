@@ -24,9 +24,28 @@ Config Backup → Normalize → Diff → Report → Slack Alert
 - **Artifacts**: 정규화된 설정 파일, Drift 리포트
 
 ## 디렉토리 구조
-ansible/ # 설정 수집 및 백업
-artifacts/ # 정규화된 설정 및 Drift 리포트
-scripts/ # Diff, 알림, 주기 실행 스크립트
+ansible/
+├─ hosts.yml
+├─ asa_precheck.yml
+├─ backup_only.yml
+├─ group_vars/
+│ ├─ asa/
+│ │ └─ main.yml
+│ └─ eos/
+│ └─ main.yml
+
+artifacts/
+├─ normalized/
+│ ├─ asa/
+│ └─ eos/
+└─ reports/
+└─ drift/
+
+scripts/
+├─ normalize_config.py
+├─ drift_report.sh
+├─ notify_slack.sh
+└─ run_nightly_drift.sh
 
 
 ## 핵심 구현
