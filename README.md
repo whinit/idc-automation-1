@@ -48,6 +48,7 @@ scripts/
  ├─ drift_report.sh
  ├─ notify_slack.sh
  └─ run_nightly_drift.sh
+```text
 
 ## 핵심 구현
 - 멀티벤더 설정 정규화(normalization) 후 Diff 비교
